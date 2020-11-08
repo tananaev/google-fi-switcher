@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Fi Switcher</string>
+    <string name="label_auto">Set carrier selection to automatic</string>
+    <string name="label_next">Select next carrier</string>
+    <string name="label_fixme">Force reactivation</string>
+    <string name="label_net">Get information about the current network</string>
+    <string name="label_info">Get general phone information</string>
+    <string name="label_debug">Phone debug options</string>
+    <string name="label_sim">Switch to / from eSim</string>
+    <string name="toast_info">Code copied. Long-press and paste it to execute.</string>
+</resources>
