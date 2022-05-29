@@ -7,15 +7,15 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
-        primary = grey,
-        primaryVariant = light,
-        secondary = dark,
+    primary = grey,
+    primaryVariant = light,
+    secondary = dark,
 )
 
 private val LightColorPalette = lightColors(
-        primary = grey,
-        primaryVariant = light,
-        secondary = dark,
+    primary = grey,
+    primaryVariant = light,
+    secondary = dark,
 )
 
 @Composable
@@ -27,9 +27,9 @@ fun FiSwitcherTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
     }
 
     MaterialTheme(
-            colors = colors,
-            typography = typography,
-            shapes = shapes,
-            content = content
+        colors = colors,
+        typography = typography,
+        shapes = shapes,
+        content = content
     )
 }

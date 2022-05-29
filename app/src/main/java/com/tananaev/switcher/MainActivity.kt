@@ -9,24 +9,22 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
-import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
-import androidx.ui.tooling.preview.Preview
+import androidx.activity.compose.setContent
 import com.tananaev.switcher.ui.FiSwitcherTheme
-
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,8 +54,8 @@ private fun onClick(context: Context, code: String) {
 @Composable
 fun MainScreen() {
     Scaffold(
-            topBar = { AppBar() },
-            bodyContent = { Content() },
+        topBar = { AppBar() },
+        content = { Content() },
     )
 }
 
@@ -72,7 +70,7 @@ fun AppBar() {
 
 @Composable
 fun Content() {
-    ScrollableColumn(Modifier.padding(8.dp)) {
+    Column(Modifier.padding(8.dp)) {
         Row {
             ImageCard(Modifier.weight(1f), "*#*#34866#*#*", R.drawable.ic_tmobile)
             ImageCard(Modifier.weight(1f), "*#*#34777#*#*", R.drawable.ic_sprint)
@@ -90,15 +88,15 @@ fun Content() {
 
 @Composable
 fun ImageCard(modifier: Modifier = Modifier, code: String, @DrawableRes image: Int) {
-    val context = ContextAmbient.current
+    val context = LocalContext.current
     Card(modifier.padding(8.dp).clickable(onClick = { onClick(context, code) }), elevation = 4.dp) {
-        Image(asset = vectorResource(id = image))
+        Image(painter = painterResource(id = image), contentDescription = "")
     }
 }
 
 @Composable
 fun TextCard(modifier: Modifier = Modifier, code: String, @StringRes text: Int) {
-    val context = ContextAmbient.current
+    val context = LocalContext.current
     Card(modifier.padding(8.dp).clickable(onClick = { onClick(context, code) }), elevation = 4.dp) {
         Text(stringResource(id = text), Modifier.padding(16.dp))
     }
