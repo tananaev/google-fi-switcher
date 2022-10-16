@@ -3,14 +3,15 @@ package com.tananaev.switcher
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Card
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -18,35 +19,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
+import androidx.core.content.ContextCompat
 import com.tananaev.switcher.ui.FiSwitcherTheme
-
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            FiSwitcherTheme {
-                Surface(color = MaterialTheme.colors.background) {
-                    MainScreen()
-                }
-            }
-        }
-    }
-}
-
-private fun setClipboard(context: Context, text: String) {
-    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-    val clip = ClipData.newPlainText("Copied Text", text)
-    clipboard.setPrimaryClip(clip)
-}
-
-private fun onClick(context: Context, code: String) {
-    setClipboard(context, code)
-    startActivity(context, Intent(Intent.ACTION_DIAL), null)
-    Toast.makeText(context, R.string.toast_info, Toast.LENGTH_LONG).show()
-}
 
 @Composable
 fun MainScreen() {
@@ -76,19 +50,55 @@ fun Content() {
 }
 
 @Composable
-fun ImageCard(modifier: Modifier = Modifier, code: String, @DrawableRes image: Int) {
+fun ImageCard(
+    modifier: Modifier = Modifier,
+    code: String,
+    @DrawableRes image: Int,
+) {
     val context = LocalContext.current
-    Card(modifier.padding(8.dp).clickable(onClick = { onClick(context, code) }), elevation = 4.dp) {
-        Image(painter = painterResource(id = image), contentDescription = "")
+    Card(
+        modifier = modifier
+            .padding(8.dp)
+            .clickable { onClick(context, code) },
+        elevation = 4.dp,
+    ) {
+        Image(
+            painter = painterResource(id = image),
+            contentDescription = "",
+        )
     }
 }
 
 @Composable
-fun TextCard(modifier: Modifier = Modifier, code: String, @StringRes text: Int) {
+fun TextCard(
+    modifier: Modifier = Modifier,
+    code: String,
+    @StringRes text: Int,
+) {
     val context = LocalContext.current
-    Card(modifier.padding(8.dp).clickable(onClick = { onClick(context, code) }), elevation = 4.dp) {
-        Text(stringResource(id = text), Modifier.padding(16.dp))
+    Card(
+        modifier = modifier
+            .padding(8.dp)
+            .clickable { onClick(context, code) },
+        elevation = 4.dp,
+    ) {
+        Text(
+            text = stringResource(id = text),
+            modifier = Modifier.padding(16.dp),
+        )
     }
+}
+
+private fun setClipboard(context: Context, text: String) {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    val clip = ClipData.newPlainText("Copied Text", text)
+    clipboard.setPrimaryClip(clip)
+}
+
+private fun onClick(context: Context, code: String) {
+    setClipboard(context, code)
+    ContextCompat.startActivity(context, Intent(Intent.ACTION_DIAL), null)
+    Toast.makeText(context, R.string.toast_info, Toast.LENGTH_LONG).show()
 }
 
 @Preview(showBackground = true)
