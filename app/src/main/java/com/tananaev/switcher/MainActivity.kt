@@ -10,10 +10,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.*
 import com.tananaev.switcher.ui.FiSwitcherTheme
 
 class MainActivity : AppCompatActivity() {
@@ -53,19 +50,11 @@ private fun onClick(context: Context, code: String) {
 
 @Composable
 fun MainScreen() {
-    Scaffold(
-        topBar = { AppBar() },
-        content = { Content() },
-    )
-}
-
-@Composable
-fun AppBar() {
-    TopAppBar(
-            title = { Text(stringResource(id = R.string.app_name)) },
-            backgroundColor = MaterialTheme.colors.primary,
-            elevation = 8.dp
-    )
+    Scaffold {
+        Box(modifier = Modifier.padding(it)) {
+            Content()
+        }
+    }
 }
 
 @Composable

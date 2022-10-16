@@ -19,7 +19,10 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun FiSwitcherTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun FiSwitcherTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit,
+) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
@@ -30,6 +33,6 @@ fun FiSwitcherTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
         colors = colors,
         typography = typography,
         shapes = shapes,
-        content = content
+        content = content,
     )
 }
