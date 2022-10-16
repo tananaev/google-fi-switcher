@@ -32,9 +32,11 @@ class GoogleActivity : AppCompatActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     Box {
                         MainScreen()
-                        AdvertView(modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.BottomCenter))
+                        AdvertView(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .align(Alignment.BottomCenter),
+                        )
                     }
                 }
             }
