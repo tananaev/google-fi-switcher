@@ -9,7 +9,10 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
+import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,17 +25,30 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    bottomContent: (@Composable () -> Unit)? = null,
+) {
     Scaffold {
-        Box(modifier = Modifier.padding(it)) {
-            Content()
+        Column(modifier = Modifier.padding(it)) {
+            Content(Modifier.weight(1f))
+            if (bottomContent != null) {
+                Divider(Modifier.padding(bottom = 8.dp))
+                bottomContent()
+            }
         }
     }
 }
 
 @Composable
-fun Content() {
-    Column(Modifier.padding(8.dp)) {
+fun Content(
+    modifier: Modifier = Modifier,
+) {
+    val scrollState = rememberScrollState()
+    Column(
+        modifier = modifier
+            .padding(horizontal = 8.dp)
+            .verticalScroll(scrollState),
+    ) {
         Row {
             ImageCard(Modifier.weight(1f), "*#*#34866#*#*", R.drawable.ic_tmobile)
             ImageCard(Modifier.weight(1f), "*#*#34777#*#*", R.drawable.ic_sprint)

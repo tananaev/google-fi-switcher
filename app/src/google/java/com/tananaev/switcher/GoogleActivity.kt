@@ -1,20 +1,20 @@
 package com.tananaev.switcher
 
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -29,13 +29,33 @@ class GoogleActivity : AppCompatActivity() {
         setContent {
             FiSwitcherTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    Box {
-                        MainScreen()
-                        AdvertView(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .align(Alignment.BottomCenter),
-                        )
+                    MainScreen {
+                        AdvertView(Modifier.fillMaxWidth())
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        handleRating()
+    }
+
+    @Suppress("DEPRECATION")
+    private fun handleRating() {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        if (!preferences.getBoolean("ratingShown", false)) {
+            val openTimes = preferences.getInt("openTimes", 0) + 1
+            preferences.edit().putInt("openTimes", openTimes).apply()
+            if (openTimes >= 1) {
+                val reviewManager = ReviewManagerFactory.create(this)
+                reviewManager.requestReviewFlow().addOnCompleteListener { infoTask ->
+                    if (infoTask.isSuccessful) {
+                        val flow = reviewManager.launchReviewFlow(this, infoTask.result)
+                        flow.addOnCompleteListener {
+                            preferences.edit().putBoolean("ratingShown", true).apply()
+                        }
                     }
                 }
             }
