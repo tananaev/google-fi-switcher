@@ -4,7 +4,6 @@
 
         <activity
             android:name=".RegularActivity"
-            android:theme="@style/Theme.FiSwitcher.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
