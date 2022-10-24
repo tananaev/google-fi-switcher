@@ -48,7 +48,7 @@ class GoogleActivity : AppCompatActivity() {
         if (!preferences.getBoolean("ratingShown", false)) {
             val openTimes = preferences.getInt("openTimes", 0) + 1
             preferences.edit().putInt("openTimes", openTimes).apply()
-            if (openTimes >= 1) {
+            if (openTimes >= 5) {
                 val reviewManager = ReviewManagerFactory.create(this)
                 reviewManager.requestReviewFlow().addOnCompleteListener { infoTask ->
                     if (infoTask.isSuccessful) {
