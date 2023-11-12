@@ -51,7 +51,6 @@ fun Content(
     ) {
         Row {
             ImageCard(Modifier.weight(1f), "*#*#34866#*#*", R.drawable.ic_tmobile)
-            ImageCard(Modifier.weight(1f), "*#*#34777#*#*", R.drawable.ic_sprint)
             ImageCard(Modifier.weight(1f), "*#*#34872#*#*", R.drawable.ic_uscellular)
         }
         TextCard(Modifier.fillMaxWidth(), "*#*#342886#*#*", R.string.label_auto)
