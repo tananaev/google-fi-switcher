@@ -1,5 +1,6 @@
 package com.tananaev.switcher
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
@@ -24,12 +25,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
     bottomContent: (@Composable () -> Unit)? = null,
 ) {
     Scaffold {
-        Column(modifier = Modifier.padding(it)) {
+        Column(
+            modifier = Modifier
+                .safeContentPadding(),
+        ) {
             Content(Modifier.weight(1f))
             if (bottomContent != null) {
                 Divider(Modifier.padding(bottom = 8.dp))
