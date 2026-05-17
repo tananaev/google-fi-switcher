@@ -13,8 +13,8 @@ android {
         applicationId = "com.tananaev.google.fi.switcher"
         minSdk = 23
         targetSdk = 37
-        versionCode = 8
-        versionName = "2.4"
+        versionCode = 9
+        versionName = "2.5"
     }
 
     signingConfigs {
