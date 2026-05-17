@@ -17,6 +17,18 @@ android {
         versionName = "2.4"
     }
 
+    signingConfigs {
+        create("release") {
+            val storePath = System.getenv("KEYSTORE_FILE")
+            if (storePath != null) {
+                storeFile = file(storePath)
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
     flavorDimensions += "default"
     productFlavors {
         create("regular") {
@@ -24,6 +36,14 @@ android {
             extra["enableCrashlytics"] = false
         }
         create("google")
+    }
+
+    buildTypes {
+        getByName("release") {
+            if (System.getenv("KEYSTORE_FILE") != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
+        }
     }
 
     buildFeatures {
