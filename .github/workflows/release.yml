@@ -73,10 +73,7 @@ jobs:
             sleep 10
             adb shell screencap -p /sdcard/launch.png
             adb pull /sdcard/launch.png launch.png
-            if ! adb shell pidof com.tananaev.google.fi.switcher > /dev/null; then
-              echo "App process not running after launch — crashed."
-              exit 1
-            fi
+            adb shell pidof com.tananaev.google.fi.switcher > /dev/null || { echo "App process not running after launch — crashed."; exit 1; }
 
       - uses: actions/upload-artifact@v4
         with:
