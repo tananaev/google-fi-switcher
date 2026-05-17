@@ -29,13 +29,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
-        run: ./gradlew :app:bundleGoogleRelease :app:assembleGoogleRelease :app:assembleRegularRelease
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: google-aab
-          path: app/build/outputs/bundle/googleRelease/app-google-release.aab
-          if-no-files-found: error
+        run: ./gradlew :app:assembleGoogleRelease :app:assembleRegularRelease
 
       - uses: actions/upload-artifact@v4
         with:
@@ -98,31 +92,24 @@ jobs:
 #    steps:
 #      - uses: actions/download-artifact@v4
 #        with:
-#          name: google-aab
-#          path: aab
+#          name: google-apk
+#          path: google-apk
 #
 #      - uses: actions/download-artifact@v4
 #        with:
 #          name: regular-apk
-#          path: apk
-#
-#      - uses: actions/download-artifact@v4
-#        with:
-#          name: launch-screenshot
-#          path: screenshot
+#          path: regular-apk
 #
 #      - name: Upload to Google Play (production)
 #        uses: r0adkll/upload-google-play@v1
 #        with:
 #          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
 #          packageName: com.tananaev.google.fi.switcher
-#          releaseFiles: aab/app-google-release.aab
+#          releaseFiles: google-apk/app-google-release.apk
 #          track: production
 #          status: completed
 #
 #      - name: Create GitHub Release
 #        uses: softprops/action-gh-release@v2
 #        with:
-#          files: |
-#            apk/app-regular-release.apk
-#            screenshot/launch.png
+#          files: regular-apk/app-regular-release.apk
