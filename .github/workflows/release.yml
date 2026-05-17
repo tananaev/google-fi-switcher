@@ -3,7 +3,6 @@ name: Release
 on:
   push:
     tags: ['v*']
-  workflow_dispatch:
 
 jobs:
   build:
@@ -81,32 +80,32 @@ jobs:
           path: launch.png
           if-no-files-found: error
 
-#  publish:
-#    needs: smoke-test
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: write
-#    steps:
-#      - uses: actions/download-artifact@v4
-#        with:
-#          name: google-apk
-#          path: google-apk
-#
-#      - uses: actions/download-artifact@v4
-#        with:
-#          name: regular-apk
-#          path: regular-apk
-#
-#      - name: Upload to Google Play (production)
-#        uses: r0adkll/upload-google-play@v1
-#        with:
-#          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-#          packageName: com.tananaev.google.fi.switcher
-#          releaseFiles: google-apk/app-google-release.apk
-#          track: production
-#          status: completed
-#
-#      - name: Create GitHub Release
-#        uses: softprops/action-gh-release@v2
-#        with:
-#          files: regular-apk/app-regular-release.apk
+  publish:
+    needs: smoke-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: google-apk
+          path: google-apk
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: regular-apk
+          path: regular-apk
+
+      - name: Upload to Google Play (production)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.tananaev.google.fi.switcher
+          releaseFiles: google-apk/app-google-release.apk
+          track: production
+          status: completed
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: regular-apk/app-regular-release.apk
