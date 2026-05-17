@@ -11,7 +11,7 @@ androidx-compose-material = { module = "androidx.compose.material:material" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 firebase-bom = "com.google.firebase:firebase-bom:33.16.0"
-firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 play-services-ads = "com.google.android.gms:play-services-ads:24.4.0"
 play-review-ktx = "com.google.android.play:review-ktx:2.0.2"
