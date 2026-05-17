@@ -2,7 +2,7 @@
 
 [![Get it on Google Play](http://www.tananaev.com/badges/google-play.svg)](https://play.google.com/store/apps/details?id=com.tananaev.google.fi.switcher)
 
-The app provides dialer codes for switching between different networks on fully supported devices. Currently the app only supports Project Fi phones and network.
+Google Fi Switcher is an Android utility for Google Fi subscribers. It provides the dialer codes needed to switch between the underlying carrier networks that Google Fi uses, which can be helpful for testing coverage or working around connectivity issues on supported devices.
 
 ## Contacts
 
